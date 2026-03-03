@@ -1,34 +1,42 @@
-# Compte à rebours concours attach territorial
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {font-family: Arial, sans-serif;}
+        .countdown {font-size: 32px; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <h1>Countdown Timer</h1>
+    <div class="countdown" id="countdown"></div>
 
-## Description
-Cette application permet de suivre le compte à rebours jusqu'au concours attaché territorial. Elle offre une interface utilisateur simple et intuitive pour visualiser le temps restant.
+    <script>
+        // Set the date we're counting down to
+        const countdownDate = new Date('2026-03-03T22:52:41Z').getTime();
 
-## Améliorations effectuées
+        // Update the countdown every 1 second
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-1. **Optimisation du code JavaScript** :
-   - Refactorisation du code pour améliorer la performance.
-   - Utilisation de l'optimisation des éléments DOM pour éviter des recherches répétées.
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-2. **Accessibilité** :
-   - Ajout d'attributs ARIA pour améliorer l'accessibilité.
+            // Display the result in the countdown div
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-3. **PWA Setup** :
-   - Implémentation d'un manifeste PWA pour une utilisation hors ligne et une meilleure expérience utilisateur sur mobile.
-
-4. **Persistance des données** :
-   - Utilisation de `localStorage` pour préserver les données même après un rechargement de la page.
-
-5. **Messages dynamiques** :
-   - Remplacement dynamique de "X" dans les messages motivants par le nombre réel de jours restants.
-
-## Installation
-Pour installer l'application, clonez ou téléchargez le dépôt et ouvrez le fichier HTML dans un navigateur.
-
-## Contribuer
-Des contributions sont les bienvenues ! Veuillez soumettre une demande de tirage si vous avez des suggestions ou des améliorations à apporter.
-
-## Licence
-Ce projet est sous licence MIT.
-
-## Contact
-Pour toute question, veuillez contacter [alexbiligan](mailto:alexbiligan@example.com).
+            // If the countdown is over, display a message
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
